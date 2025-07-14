@@ -14,25 +14,24 @@ public class bubble {
         }
         sort(arr);
         for(int i=0;i<n;i++){
-            System.out.print(" "+arr[i]);
+            System.out.print(arr[i]+" ");
     
     }}
-    public static int[] sort(int arr[]){
-        int n = arr.length;
-        for(int i=0;i<n-2;i++){
-            for(int j=0;j<n-i-1;j++){
+    public static int[] sort(int[] arr){
+        for(int i=0;i<arr.length;i++){
+            for (int j=0;j<arr.length-1-i;j++){
                 if(arr[j]>arr[j+1]){
-                    int temp=arr[j];
+                    int t=arr[j];
                     arr[j]=arr[j+1];
-                    arr[j+1]=temp;
-
+                    arr[j+1]=t;
                 }
             }
         }
         return arr;
     }
+    }
 
     
-}
+
 
 //yrr mein nahi reh sakti hu tere binna mein kya bolu ye pyaar feelings ye sab ek tamasha nahi hai yrr pta nahi aise ajeeb sa fell ho raha hai bohot darr lag raha hai yaar yaar kabhi mat chodke jaana yrr mein loyal rahungi hamesha yrr .. tereko chodke ye dosti ye sab kuch bhi nahi hai yrr mein nhi reh sakti yrr i am sorry yaar mein tere har problem mein support karungi aur hamesha tere saath rahungi yaar maaf kardo yrr mujhe please i am sorry
