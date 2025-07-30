@@ -34,4 +34,4 @@ public class bubble {
     
 
 
-//yrr mein nahi reh sakti hu tere binna mein kya bolu ye pyaar feelings ye sab ek tamasha nahi hai yrr pta nahi aise ajeeb sa fell ho raha hai bohot darr lag raha hai yaar yaar kabhi mat chodke jaana yrr mein loyal rahungi hamesha yrr .. tereko chodke ye dosti ye sab kuch bhi nahi hai yrr mein nhi reh sakti yrr i am sorry yaar mein tere har problem mein support karungi aur hamesha tere saath rahungi yaar maaf kardo yrr mujhe please i am sorry
+

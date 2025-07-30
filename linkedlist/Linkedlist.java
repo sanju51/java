@@ -1,151 +1,166 @@
-public class Linkedlist{
-    public static class Node{
+public class Linkedlist {
+    public static class Node {
         int data;
         Node next;
-        public Node(int data){
-            this.data=data;
-            this.next=null;
-        }    
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
     }
+
     public static Node head;
     public static Node tail;
-    public static int c;
+    public static int c = 0;
 
-    public void addfirst(int data){
+    public void addfirst(int data) {
         Node newNode = new Node(data);
         c++;
-        if(head==null){
-            head=tail=newNode;
+        if (head == null) {
+            head = tail = newNode;
             return;
         }
-        newNode.next=head;
-        head=newNode;
+        newNode.next = head;
+        head = newNode;
     }
 
-    public void addlast(int data){
-        Node newnode=new Node(data);
+    public void addlast(int data) {
+        Node newNode = new Node(data);
         c++;
-        if(head==null){
-            head=tail=newnode;
-            return; 
-            }
-            tail.next=newnode;
-            tail=newnode;
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+        tail.next = newNode;
+        tail = newNode;
     }
-    public void addmid(int index,int data){
-        if(index==0){
+
+    public void addmid(int index, int data) {
+        if (index == 0) {
             addfirst(data);
             return;
         }
+        if (index >= c) {
+            addlast(data);
+            return;
+        }
         Node newNode = new Node(data);
         c++;
-        Node prev=head;
-        if(head==null){
-            head=tail=newNode;
+        Node prev = head;
+        for (int i = 0; i < index - 1; i++) {
+            prev = prev.next;
         }
-        for(int i=0;i<index-1;i++){
-            prev=prev.next;
-        }
-        newNode.next=prev.next;
-        prev.next=newNode;
+        newNode.next = prev.next;
+        prev.next = newNode;
     }
-    public int removefirst(){
-        if(head==null){
-            System.out.println("List is empty");
-            return 0;
-            }
-            if(c==1){
-                head=tail=null;
-                c--;
-                return 0;
 
-            }
-        Node prev=head;
-        head=head.next;
-        prev.next=null;
+    public int removefirst() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return -1;
+        }
+        int val = head.data;
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }
         c--;
-        return prev.data;
+        return val;
     }
 
-    public int removelast(){
-        if(head==null){
+    public int removelast() {
+        if (head == null) {
             System.out.println("List is empty");
-            return 0;
-            }
-            if(c==1){
-                head=tail=null;
-                c--;
-                return 0;
-
-            }
-        Node prev=head;
-        
-        while(prev.next!=tail){
-            prev=prev.next;
-            
-
+            return -1;
         }
-        int val = tail.data; 
-        prev.next = null; 
-        tail = prev; 
-        c--; 
-    
-        return val; 
+        if (head.next == null) {
+            return removefirst();
+        }
+        Node prev = head;
+        while (prev.next.next != null) {
+            prev = prev.next;
+        }
+        int val = prev.next.data;
+        prev.next = null;
+        tail = prev;
+        c--;
+        return val;
     }
 
-     public int search(int d){
-         
+    public int size() {
+        return c;
+    }
+
+    public Node middleNode(Node head) {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public Node mergesort(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node mid = middleNode(head);
+        Node rightHalf = mid.next;
+        mid.next = null;
+
+        Node leftSorted = mergesort(head);
+        Node rightSorted = mergesort(rightHalf);
+        return merge(leftSorted, rightSorted);
+    }
+
+    public Node merge(Node a, Node b) {
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        while (a != null && b != null) {
+            if (a.data <= b.data) {
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
+        }
+        if (a != null) tail.next = a;
+        if (b != null) tail.next = b;
+        return dummy.next;
+    }
+
+    public void printList(Node head) {
         Node temp = head;
-         int i=0;
-         while(temp!=null){
-             if(temp.data==d){
-               return i;
-           }
-            temp=temp.next;
-            i++;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
         }
-         return -1;
-     }
-
-    public int help(Node head,int key){
-        if(head==null){
-            return -1;
-        }
-        if(head.data==key){
-            return 0;
-        }
-        int indx=help(head.next,key);
-        if(indx==-1){
-            return -1;
-        }
-        return indx+1;
-    }
-    public int recsearch(int d){
-        return help(head,d);
+        System.out.println("NULL");
     }
 
     public static void main(String[] args) {
-    Linkedlist ll=new Linkedlist();
-    ll.addfirst(5);
-    ll.addfirst(10);
-    ll.addlast(15);
-    ll.addlast(56);
-    ll.addmid(2, 20);
-    int h=ll.removefirst();
-    int j=ll.removelast();
-   
-    Node temp = ll.head;
-    while (temp != null) {
-        System.out.print(temp.data + " -> ");
-        temp = temp.next;
+        Linkedlist ll = new Linkedlist();
+        ll.addfirst(5);
+        ll.addfirst(10);
+        ll.addlast(15);
+        ll.addlast(56);
+        ll.addmid(2, 20);
+        ll.addfirst(1);
+        ll.addfirst(7);
+        ll.addfirst(4);
+        ll.addfirst(5);
+        ll.addfirst(2);
+        ll.addfirst(67);
+
+        System.out.println("Original List:");
+        ll.printList(ll.head);
+
+        ll.head = ll.mergesort(ll.head); // Sorting the list
+
+        System.out.println("Sorted List:");
+        ll.printList(ll.head);
     }
-    System.out.println("null");
-    System.out.println("Deleted node is " +h);
-    System.out.println(c);
-    System.out.println("Deleted node is " +j);
-    int g=ll.search(15);
-    System.out.println(g);
-    int l=ll.recsearch(15);
-    System.out.println(l);
-    
-}}
+}
